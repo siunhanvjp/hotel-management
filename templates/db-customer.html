@@ -34,7 +34,7 @@
                     <td>{{customer.point}}</td>
                     <td>{{customer.customertype}}</td>
                     <td>
-                      <a href="{%url 'view_booking' customer.customerid%}" class="btn rounded-pill btn-outline-primary">View</a>
+                      <a href="{%url 'view_booking_future' customer.customerid%}" class="btn rounded-pill btn-outline-primary">View</a>
                     </td>
                   </tr>
                   {%endfor%}

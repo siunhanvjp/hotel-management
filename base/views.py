@@ -49,11 +49,18 @@ def home(request):
     return render(request,'db-customer.html', context)
 
 @login_required(login_url='login')
-def view_booking(request,pk):
-    bookings = Booking.objects.filter(customerid = pk).order_by('-bookingdate')
+def view_booking_future(request,pk):
+    bookings = Booking.objects.filter(customerid = pk,checkin__gt = datetime.datetime.now()).order_by('checkin')
     customer = Customer.objects.get(customerid = pk)
-    context={'bookings': bookings, 'customer':customer}
-    return render(request, 'db-booking.html', context)
+    context={'bookings': bookings, 'customer':customer, 'pk':pk}
+    return render(request, 'db-booking-future.html', context)
+
+@login_required(login_url='login')
+def view_booking_all(request,pk):
+    bookings = Booking.objects.filter(customerid = pk).order_by('checkin')
+    customer = Customer.objects.get(customerid = pk)
+    context={'bookings': bookings, 'customer':customer, 'pk':pk}
+    return render(request, 'db-booking-all.html', context)
 
 @login_required(login_url='login')
 def addroomtype(request):
@@ -91,7 +98,7 @@ def addroomtype(request):
     
     return render(request,'db-addroomtype.html', context)
 
-cursor = connection.cursor()
+
 @login_required(login_url='login')
 def statistic(request):
     branches = Branch.objects.all()
@@ -102,14 +109,17 @@ def statistic(request):
         branch_id = request.POST.get('branch_id')
         year = request.POST.get('year')
 
-
-    cursor.execute('call ThongKeLuotKhach (%(branch_id)s,%(year)s)',{'branch_id':branch_id, 'year': year})
+    cursor = connection.cursor()
+    cursor.callproc("ThongKeLuotKhach", [branch_id, year]) #call procedure
     results = cursor.fetchall()
+    
     for result in results:
         data_list += str(result[1]) + ','
         
     data_list = data_list[:-1]; 
     data_list += ']'; 
+    cursor.close() 
+
     context = {'branches': branches, 'results': results, 'year': year, 'branch_id': branch_id, 'data_list': data_list}
     return render(request, 'db-statistic.html', context)
     
