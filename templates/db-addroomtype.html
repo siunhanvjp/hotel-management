@@ -1,0 +1,159 @@
+{%extends 'base.html'%}
+{%block content%}
+    <div id="main-content">
+      <div class="page-heading">
+        <section class="section">
+          <div class="card" style="width: 60%; margin: auto">
+            <div class="card-header">
+              <h4 class="card-title">Add new room type</h4>
+            </div>
+            <div class="card-content">
+              <div class="card-body">
+                {% include 'messages.html' %}
+                <form method="POST" action="{%url 'addroomtype'%}"  class="form form-horizontal">
+                  {% csrf_token %}
+                  <div class="form-body">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label for="roomname">Room name</label>
+                      </div>
+                      <div class="col-md-8 form-group">
+                        <input
+                          type="text"
+                          id="roomname"
+                          class="form-control"
+                          name="roomname"
+                          placeholder="Room name"
+                        />
+                      </div>
+                      <div class="col-md-4">
+                        <label for="area">Area</label>
+                      </div>
+                      <div class="col-md-8 form-group">
+                        <input
+                          type="number"
+                          min="1"
+                          step="1"
+                          onfocus="this.previousValue = this.value"
+                          onkeydown="this.previousValue = this.value"
+                          oninput="validity.valid || (value = this.previousValue)"
+                          id="area"
+                          class="form-control"
+                          name="area"
+                          placeholder="Area"
+                        />
+                      </div>
+                      <div class="col-md-4">
+                        <label for="numguest">Number of guests</label>
+                      </div>
+                      <div class="col-md-8 form-group">
+                        <input
+                          type="number"
+                          min="1"
+                          step="1"
+                          max="10"
+                          onfocus="this.previousValue = this.value"
+                          onkeydown="this.previousValue = this.value"
+                          oninput="validity.valid || (value = this.previousValue)"
+                          id="numguest"
+                          class="form-control"
+                          name="numguest"
+                          placeholder="Number of guests"
+                          
+                        />
+                      </div>
+                      <div class="col-md-4">
+                        <label for="description">Description</label>
+                      </div>
+                      <div class="col-md-8 form-group">
+                        <textarea
+                          class="form-control"
+                          id="description"
+                          placeholder="Description"
+                          name="description"
+                        ></textarea>
+                      </div>
+                      <div class="col-md-4">
+                        <label>Number of beds</label>
+                      </div>
+                      <div class="col-md-8 form-group">
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" style="width:30%; justify-content: center;">1.5m</span>
+                          <input
+                            type="number"
+                            min="0"
+                            step="1"
+                            onfocus="this.previousValue = this.value"
+                            onkeydown="this.previousValue = this.value"
+                            oninput="validity.valid || (value = this.previousValue)"
+                            class="form-control"
+                            name="1.5"
+                            value="0"
+                          />
+                        </div>
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" style="width:30%; justify-content: center;">2.0m</span>
+                          <input
+                            type="number"
+                            min="0"
+                            step="1"
+                            onfocus="this.previousValue = this.value"
+                            onkeydown="this.previousValue = this.value"
+                            oninput="validity.valid || (value = this.previousValue)"
+                            class="form-control"
+                            name="2.0"
+                            value="0"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <label for="numguest">Number of supplies</label>
+                      </div>
+                      <div class="col-md-8 form-group">
+                        {%for supply in supplies%}
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" style="width:30%; justify-content: center;">{{supply.sppname}}</span>
+                          <input
+                            type="number"
+                            min="0"
+                            step="1"
+                            onfocus="this.previousValue = this.value"
+                            onkeydown="this.previousValue = this.value"
+                            oninput="validity.valid || (value = this.previousValue)"
+                            class="form-control"
+                            name="{{supply.sppid}}"
+                            value="0"
+                          />
+                        </div>
+                        {%endfor%}
+                      </div>
+                      <div class="col-12 d-flex justify-content-end">
+                        <button
+                          type="submit"
+                          class="btn btn-primary me-1 mb-1"
+                        >
+                          Submit
+                        </button>
+                        <button
+                          type="reset"
+                          class="btn btn-light-secondary me-1 mb-1"
+                        >
+                          Reset
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer>
+        <div class="footer clearfix mb-0 text-muted">
+          
+        </div>
+      </footer>
+    </div>
+{%endblock content%}

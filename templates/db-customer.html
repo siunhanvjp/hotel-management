@@ -1,0 +1,54 @@
+{%extends 'base.html'%}
+{%block content%}
+    <div id="main-content">
+      <div class="page-heading">
+        <section class="section">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">Customers information</h4>
+            </div>
+            <div class="card-body">
+              <table class="table table-hover" id="table1">
+                <thead>
+                  <tr>
+                    <th>Customer ID</th>
+                    <th>Citizen ID</th>
+                    <th>Full Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Username</th>
+                    <th>Point</th>
+                    <th>Rank</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {%for customer in customers%}
+                  <tr>
+                    <td>{{customer.customerid}}</td>
+                    <td>{{customer.citizenid}}</td>
+                    <td>{{customer.fullname}}</td>
+                    <td>{{customer.phone}}</td>
+                    <td>{{customer.email}}</td>
+                    <td>{{customer.username}}</td>
+                    <td>{{customer.point}}</td>
+                    <td>{{customer.customertype}}</td>
+                    <td>
+                      <a href="{%url 'view_booking' customer.customerid%}" class="btn rounded-pill btn-outline-primary">View</a>
+                    </td>
+                  </tr>
+                  {%endfor%}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer>
+        <div class="footer clearfix mb-0 text-muted">
+          
+        </div>
+      </footer>
+    </div>
+{%endblock content%}
