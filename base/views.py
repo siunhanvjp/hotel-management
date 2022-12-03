@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from .models import Branch, Customer, Booking, RoomType, SupplyType, RoomTypeSupplyType, BedInfo, User
 from django.db import connection
 import datetime
+from django.http import JsonResponse
 # Create your views here.
 
 bedlist = ['1.5', '2.0']
@@ -61,6 +62,18 @@ def view_booking_all(request,pk):
     customer = Customer.objects.get(customerid = pk)
     context={'bookings': bookings, 'customer':customer, 'pk':pk}
     return render(request, 'db-booking-all.html', context)
+
+def update_booking_all(request,pk):
+    
+    bookings = Booking.objects.filter(customerid = pk).order_by('checkin')
+    customer = Customer.objects.get(customerid = pk)
+    return JsonResponse({"booking": list(bookings.values())})
+
+def update_booking_future(request,pk):
+    
+    bookings = Booking.objects.filter(customerid = pk,checkin__gt = datetime.datetime.now()).order_by('checkin')
+    customer = Customer.objects.get(customerid = pk)
+    return JsonResponse({"booking": list(bookings.values())})
 
 @login_required(login_url='login')
 def addroomtype(request):

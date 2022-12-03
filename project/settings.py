@@ -143,6 +143,6 @@ MEDIA_ROOT = BASE_DIR / 'static/images'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-DATETIME_FORMAT = 'd-m-Y H:i'
+DATETIME_FORMAT = 'Y-m-d H:i'
 USE_L10N = False  
-USE_TZ = True 
+# USE_TZ = True 

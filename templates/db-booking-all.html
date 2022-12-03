@@ -10,21 +10,21 @@
                     class="theme-toggle d-flex gap-2 align-items-center"
                   >
                     <span>Future bookings</span>
-                    <div class="form-check form-switch">
+                    <div class="form-check form-switch" id="change-button">
                       <input
                         class="form-check-input"
                         type="checkbox"
                         style="cursor: pointer"
+                        {% comment %} id = "click-here" {% endcomment %}
                         onclick='window.location.assign("{%url 'view_booking_future' pk%}")'
                         checked
                       />
-                      <label class="form-check-label"></label>
                     </div>
                     <span>All bookings</span>
               </div>
             </div>
             <div class="card-body">
-              <table class="table table-hover" id="table1">
+              <table class="table" id="table1">
                 <thead>
                   <tr>
                     <th>Booking ID</th>
@@ -36,14 +36,16 @@
                     <th>Total pay</th>
                   </tr>
                 </thead>
-                <tbody>
+                {% comment %} <tbody id="displayBookingList"  {% endcomment %}
+                <tbody
+                data-url-all="{%url 'update_booking_all' pk%}" data-url-future="{%url 'update_booking_future' pk%}">
                   {%for booking in bookings%}
                   <tr>
                     <td>{{booking.bookingid}}</td>
                     <td>{{booking.bookingdate}}</td>
                     <th>{{booking.guestnum}}</th>
-                    <td>{{booking.checkin|date:"d-m-Y" }}</td>
-                    <td>{{booking.checkout|date:"d-m-Y" }}</td>
+                    <td>{{booking.checkin|date:"Y-m-d" }}</td>
+                    <td>{{booking.checkout|date:"Y-m-d" }}</td>
                     <td>{{booking.status}}</td>
                     <td>{{booking.totalpay}}</td>
                   </tr>

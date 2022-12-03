@@ -9,4 +9,6 @@ urlpatterns = [
     path('statistic/', views.statistic, name="statistic"),
     path('login/', views.loginUser, name="login"),
     path('logout/', views.logoutUser, name="logout"),
+    path('update_booking_all/<pk>', views.update_booking_all, name="update_booking_all"),
+    path('update_booking_future/<pk>', views.update_booking_future, name="update_booking_future"),
 ]
