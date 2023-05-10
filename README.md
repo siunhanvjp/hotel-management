@@ -21,7 +21,7 @@ This project aims  to provide a Hotel Management System for Manager:
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/namkha1032/SoftwareEngineering-Assignment.git
+   git clone https://github.com/siunhanvjp/hotel-management
    ```
 2. Configure Database settings in settings.py in folder "project" at line 86
 
